@@ -44,7 +44,9 @@ Methods:
 - `get_country(country_code: str)`
 
 Returns a `CountryData` object.
-For a list of country codes, refer to `DiseaseData.infected_countries`
+
+The country code is usually just the name of the country, but lowercase and underscored
+For a list of country codes, print out `DiseaseData.infected_countries`
 
 ### `CountryData`
 
