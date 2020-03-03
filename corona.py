@@ -68,4 +68,21 @@ def fetch_global_data():
             )
         )
 
+    world = CountryData('world',0,0,0,0,0,RecentCountryData(0,0))
+
+    for cty in disease_data.infected_countries:
+        cdat = disease_data.get_country(cty)
+
+        world.total_cases+=cdat.total_cases
+        world.infected+=cdat.infected
+        world.deaths+=cdat.deaths
+        world.recovered+=cdat.recovered
+        world.critical_cases+=cdat.critical_cases
+        world.recent.infected+=cdat.recent.infected
+        world.recent.deaths+=cdat.recent.deaths
+
+    disease_data.world = world
     return disease_data
+
+if __name__ == "__main__":
+    print(fetch_global_data().world.infected, "people around the world are currently infected with COVID-19")

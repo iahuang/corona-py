@@ -17,7 +17,7 @@ $ pip install beautifulsoup4
 $ pip install requests
 ```
 
-### Quick example
+### Examples
 
 ```python
 import corona # ...into your country
@@ -25,6 +25,11 @@ import corona # ...into your country
 world_data = corona.fetch_world_data()
 ded = world_data.get_country('usa').deaths
 print("oh no", ded, "people have died in the US very sad")
+```
+
+```python
+import corona
+print(corona.fetch_global_data().world.infected, "people around the world are currently infected with COVID-19")
 ```
 
 ## Documentation
@@ -38,6 +43,7 @@ Returns a `DiseaseData` object
 Properties:
 
 - `infected_countries`: a list of infected countries by country code
+- `world`: a `CountryData` object that represents the world cumulatively
 
 Methods:
 
