@@ -51,7 +51,91 @@ Methods:
 
 Returns a `CountryData` object.
 
-The country code is usually just the name of the country, but lowercase and underscored. For a list of country codes, print out `DiseaseData.infected_countries`
+The country code is usually just the name of the country, but lowercase and underscored. For a list of country codes refer to the list below:
+
+```python
+china # mainland
+s_korea
+italy
+iran
+diamond_princess # A British cruise ship that contracted the virus
+japan
+france
+germany
+spain
+usa
+singapore
+hong_kong
+switzerland
+kuwait
+uk
+bahrain
+thailand
+australia
+taiwan
+malaysia
+canada
+norway
+iraq
+sweden
+uae # United Arab Emirates
+austria
+netherlands
+india
+vietnam
+belgium
+israel
+iceland
+lebanon
+oman
+san_marino
+macao
+denmark
+croatia
+algeria
+qatar
+ecuador
+finland
+greece
+mexico
+czechia
+pakistan
+belarus
+portugal
+romania
+philippines
+azerbaijan
+georgia
+russia
+brazil
+egypt
+estonia
+indonesia
+ireland
+new_zealand
+senegal
+afghanistan
+andorra
+armenia
+cambodia
+dominican_republic
+jordan
+latvia
+lithuania
+luxembourg
+north_macedonia
+monaco
+morocco
+nepal
+nigeria
+saudi_arabia
+sri_lanka
+tunisia
+ukraine
+argentina
+chile
+liechtenstein
+```
 
 ### `CountryData`
 

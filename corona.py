@@ -2,20 +2,25 @@ import requests
 from bs4 import BeautifulSoup
 from dataclasses import dataclass
 
+
 def extract_text(td):
     return td.get_text().strip()
 
+
 def extract_country(td):
-    return td.get_text().strip().lower().replace('.','').replace(' ','_')
+    return td.get_text().strip().lower().replace('.', '').replace(' ', '_').replace(':', '')
+
 
 def extract_int(td):
-    text = td.get_text().strip().replace(',','')
+    text = td.get_text().strip().replace(',', '')
     return int(text) if text else 0
+
 
 @dataclass
 class RecentCountryData:
     deaths: int
     infected: int
+
 
 @dataclass
 class CountryData:
@@ -27,8 +32,10 @@ class CountryData:
     critical_cases: int
     recent: RecentCountryData
 
+
 class CountryNotFoundException(Exception):
     pass
+
 
 class DiseaseData:
     def __init__(self):
@@ -39,10 +46,11 @@ class DiseaseData:
         if not data:
             raise CountryNotFoundException()
         return data
-    
+
     @property
     def infected_countries(self):
         return list(self.data.keys())
+
 
 def fetch_global_data():
     disease_data = DiseaseData()
@@ -53,7 +61,7 @@ def fetch_global_data():
         cols = list(row.find_all("td"))
         if not cols:
             continue
-        
+
         country = extract_country(cols[0])
         disease_data.data[country] = CountryData(
             country,
@@ -68,21 +76,15 @@ def fetch_global_data():
             )
         )
 
-    world = CountryData('world',0,0,0,0,0,RecentCountryData(0,0))
-
-    for cty in disease_data.infected_countries:
-        cdat = disease_data.get_country(cty)
-
-        world.total_cases+=cdat.total_cases
-        world.infected+=cdat.infected
-        world.deaths+=cdat.deaths
-        world.recovered+=cdat.recovered
-        world.critical_cases+=cdat.critical_cases
-        world.recent.infected+=cdat.recent.infected
-        world.recent.deaths+=cdat.recent.deaths
+    world = DiseaseData.get_country(disease_data, "total")
+    world.country = "world"
 
     disease_data.world = world
     return disease_data
 
+
 if __name__ == "__main__":
-    print(fetch_global_data().world.infected, "people around the world are currently infected with COVID-19")
+    for c in fetch_global_data().infected_countries:
+        print(c)
+    print(fetch_global_data().world.infected,
+          "people around the world are currently infected with COVID-19")
