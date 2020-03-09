@@ -6,7 +6,7 @@
 
 ## How to Use
 
-Throw the file into your project directory and install the dependencies. I'm not putting this up on PiPy because I'm lazy.
+Throw the file into your project directory and install the dependencies. I'm not putting this up on PiPy because it's only one file and I'm lazy.
 
 ### Dependencies
 
