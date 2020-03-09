@@ -147,6 +147,12 @@ Properties:
 - `deaths`
 - `recovered`
 - `critical_cases`
+- `per_mil` cases per million
 - `recent`
   - `.infected`
   - `.deaths`
+
+Methods:
+
+- `death_rate()`
+- `recovery_rate()`
