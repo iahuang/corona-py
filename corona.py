@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from dataclasses import dataclass
+from termcolor import colored
 
 
 def extract_text(td):
@@ -14,6 +15,11 @@ def extract_country(td):
 def extract_int(td):
     text = td.get_text().strip().replace(',', '')
     return int(text) if text else 0
+
+
+def extract_flt(td):
+    text = td.get_text().strip().replace(',', '')
+    return float(text) if text else 0.0
 
 
 @dataclass
@@ -30,8 +36,14 @@ class CountryData:
     deaths: int
     recovered: int
     critical_cases: int
+    per_mil: int
     recent: RecentCountryData
 
+    def death_rate(self):
+        return self.deaths/self.total_cases
+
+    def recovery_rate(self):
+        return self.recovered/self.total_cases
 
 class CountryNotFoundException(Exception):
     pass
@@ -64,15 +76,16 @@ def fetch_global_data():
 
         country = extract_country(cols[0])
         disease_data.data[country] = CountryData(
-            country,
-            extract_int(cols[1]),
-            extract_int(cols[5]),
-            extract_int(cols[3]),
-            extract_int(cols[6]),
-            extract_int(cols[7]),
-            RecentCountryData(
-                extract_int(cols[2]),
-                extract_int(cols[4])
+            country=country,
+            total_cases=extract_int(cols[1]),
+            infected=extract_int(cols[6]),
+            deaths=extract_int(cols[3]),
+            recovered=extract_int(cols[5]),
+            critical_cases=extract_int(cols[7]),
+            per_mil=extract_flt(cols[8]),
+            recent=RecentCountryData(
+                deaths=extract_int(cols[2]),
+                infected=extract_int(cols[4])
             )
         )
 
@@ -84,7 +97,13 @@ def fetch_global_data():
 
 
 if __name__ == "__main__":
-    for c in fetch_global_data().infected_countries:
-        print(c)
-    print(fetch_global_data().world.infected,
+    data = fetch_global_data()
+    print(colored(data.world.infected, 'yellow'),
           "people around the world are currently infected with COVID-19")
+    print("\tand")
+    print(colored(data.world.deaths, 'red'),
+          "have died")
+    print(colored(data.get_country('china').death_rate()*100, 'cyan'),
+          "percent that have contracted the disease in mainland China have died")
+    print(colored(data.get_country('china').recovery_rate()*100, 'cyan'),
+          "percent that have contracted the disease in mainland China have recovered")
