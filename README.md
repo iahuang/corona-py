@@ -34,7 +34,7 @@ print(corona.fetch_global_data().world.infected, "people around the world are cu
 
 ## Documentation
 
-### `corona.fetch_world_data()`
+### `corona.fetch_global_data()`
 
 Returns a `DiseaseData` object
 
