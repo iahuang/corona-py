@@ -22,8 +22,8 @@ $ pip install requests
 ```python
 import corona # ...into your country
 
-world_data = corona.fetch_world_data()
-ded = world_data.get_country('usa').deaths
+global_data = corona.fetch_global_data()
+ded = global_data.get_country('usa').deaths
 print("oh no", ded, "people have died in the US very sad")
 ```
 
