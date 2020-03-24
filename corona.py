@@ -68,7 +68,7 @@ def fetch_global_data():
     disease_data = DiseaseData()
     r = requests.get("https://www.worldometers.info/coronavirus/#countries")
     soup = BeautifulSoup(r.text, "html.parser")
-    table_rows = soup.find_all("tr")
+    table_rows = soup.find(id='nav-today').find_all("tr")
     for row in table_rows:
         cols = list(row.find_all("td"))
         if not cols:
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     print("\tand")
     print(colored(data.world.deaths, 'red'),
           "have died")
-    print(colored(data.get_country('china').death_rate()*100, 'cyan'),
-          "percent that have contracted the disease in mainland China have died")
-    print(colored(data.get_country('china').recovery_rate()*100, 'cyan'),
-          "percent that have contracted the disease in mainland China have recovered")
+    print(colored(data.get_country('usa').death_rate()*100, 'cyan'),
+          "percent that have contracted the disease in the US have died")
+    print(colored(data.get_country('usa').recovery_rate()*100, 'cyan'),
+          "percent that have contracted the disease in the US have recovered")
