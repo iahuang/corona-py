@@ -6,7 +6,7 @@
 
 ## How to Use
 
-Throw the file into your project directory and install the dependencies. I'm not putting this up on PiPy because I'm lazy.
+Throw the file into your project directory and install the dependencies. I'm not putting this up on PiPy because it's only one file and I'm lazy.
 
 ### Dependencies
 
@@ -22,8 +22,8 @@ $ pip install requests
 ```python
 import corona # ...into your country
 
-world_data = corona.fetch_world_data()
-ded = world_data.get_country('usa').deaths
+global_data = corona.fetch_global_data()
+ded = global_data.get_country('usa').deaths
 print("oh no", ded, "people have died in the US very sad")
 ```
 
@@ -34,7 +34,7 @@ print(corona.fetch_global_data().world.infected, "people around the world are cu
 
 ## Documentation
 
-### `corona.fetch_world_data()`
+### `corona.fetch_global_data()`
 
 Returns a `DiseaseData` object
 
@@ -147,6 +147,12 @@ Properties:
 - `deaths`
 - `recovered`
 - `critical_cases`
+- `per_mil` cases per million
 - `recent`
   - `.infected`
   - `.deaths`
+
+Methods:
+
+- `death_rate()`
+- `recovery_rate()`
